@@ -1,4 +1,4 @@
-import { CircuitBoard, Package } from "lucide-react";
+import { CircuitBoard, Package, GlassWater } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -17,7 +17,7 @@ const DashboardPage = async ({ params }) => {
       <div className="flex-1 space-y-4 p-8 pt-6">
         <div className="heading separator pb-4">
           <h2>Dashboard</h2>
-          <p>Visão geral da loja</p>
+          <p>Visão geral do painel</p>
         </div>
         <div className="grid gap-4 grid-cols-3">
           <Card>
@@ -32,7 +32,7 @@ const DashboardPage = async ({ params }) => {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-md font-medium">Volume Total (reservatórios)</CardTitle>
-              <Package className="h-5 w-5 text-muted-foreground" />
+              <GlassWater className="h-5 w-5 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{volumeTotal}L</div>
