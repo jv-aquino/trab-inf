@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url = env("DATABASE_URL")
+}
+
+model Loja {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  nome         String
+  userId       String
+  reservatorios Reservatorio[] @relation("LojaToReservatorio")
+  vidros       Vidro[] @relation("LojaToVidro")
+  updatedAt    DateTime @updatedAt
+}
+
+model Reservatorio {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  nome         String  
+  volumeTotal  Float  
+  hidrogenio   Float  
+  combustivel  Float  
+  lojaId       String    @db.ObjectId
+  loja         Loja    @relation("LojaToReservatorio", fields: [lojaId], references: [id])
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@index([lojaId])
+}
+
+model Vidro {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  nome           String  
+  area           Float
+  preco          Float
+  estoque        Int
+
+  lojaId     String     @db.ObjectId
+  loja       Loja      @relation("LojaToVidro", fields: [lojaId], references: [id])
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([lojaId])
+}
