@@ -8,7 +8,6 @@ import axios from "axios";
 import { Trash } from "lucide-react"
 
 import AlertModal from '../AlertModal'
-import ImageUpload from "../ImageUpload";
 
 export default function VidroForm({ initialData }) {
   const params = useParams()
