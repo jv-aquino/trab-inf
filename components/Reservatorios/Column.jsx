@@ -13,16 +13,16 @@ export const columns = [
     }
   },
   {
-    accessorKey: "descricao",
-    header: "Descrição"
+    accessorKey: "volumeTotal",
+    header: "Volume Total (L)"
   },
   {
-    accessorKey: "empresa",
-    header: "Empresa",
+    accessorKey: "hidrogenio",
+    header: "Volume de Hidrogênio (L)",
   },
   {
-    accessorKey: "createdAt",
-    header: "Data",
+    accessorKey: "combustivel",
+    header: "Volume de Combustível (L)",
   },
   {
     id: "actions",

@@ -9,7 +9,7 @@ export async function POST( req, { params } ) {
 
     const body = await req.json();
 
-    const { nome, descricao, chave, empresaId } = body;
+    const { nome, volumeTotal, hidrogenio, combustivel } = body;
 
     if (!userId) {
       return new NextResponse("Não autorizado", { status: 403 });
@@ -18,14 +18,14 @@ export async function POST( req, { params } ) {
     if (!nome) {
       return new NextResponse("O nome é necessário", { status: 400 });
     }
-    if (!descricao) {
-      return new NextResponse("A descrição é necessária", { status: 400 });
+    if (!volumeTotal) {
+      return new NextResponse("O volume total é necessário", { status: 400 });
     }
-    if (!chave) {
-      return new NextResponse("A palavra chave é necessária", { status: 400 });
+    if (!hidrogenio) {
+      return new NextResponse("O volume de hidrogênio é necessário", { status: 400 });
     }
-    if (!empresaId) {
-      return new NextResponse("O id da empresa é necessário", { status: 400 });
+    if (!combustivel) {
+      return new NextResponse("O volume de combustível é necessária", { status: 400 });
     }
 
     if (!params.lojaId) {
@@ -43,43 +43,39 @@ export async function POST( req, { params } ) {
       return new NextResponse("Não autorizado", { status: 405 });
     }
 
-    const categoria = await prismadb.categoria.create({
+    const reservatorio = await prismadb.reservatorio.create({
       data: {
         nome,
-        descricao,
-        chave,
-        empresaId,
+        volumeTotal, 
+        hidrogenio, 
+        combustivel,
         lojaId: params.lojaId,
       }
     });
   
-    return NextResponse.json(categoria);
+    return NextResponse.json(reservatorio);
   } catch (error) {
-    console.log('[CATEGORIES_POST]', error);
+    console.log('[reservatorios_POST]', error);
     return new NextResponse("Internal error", { status: 500 });
   }
 };
 
 export async function GET( req, { params } ) {
   const { searchParams } = new URL(req.url)
-  const empresaId = searchParams.get('empresaId') || undefined;
   try {
     if (!params.lojaId) {
       return new NextResponse("O id da loja é necessário", { status: 400 });
     }
 
-    const categorias = await prismadb.categoria.findMany({
+    const reservatorios = await prismadb.reservatorio.findMany({
       where: {
         lojaId: params.lojaId
       },
-      include: {
-        empresa: true,
-      }
     });
   
-    return NextResponse.json(categorias);
+    return NextResponse.json(reservatorios);
   } catch (error) {
-    console.log('[CATEGORIAS_GET]', error);
+    console.log('[reservatorioS_GET]', error);
     return new NextResponse("Internal error", { status: 500 });
   }
 };

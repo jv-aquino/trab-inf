@@ -2,33 +2,31 @@ import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale';
 import prismadb from '@/lib/prismadb'
 
-import CategoriasClient from "@/components/Reservatorios/ReservatorioClient"
+import ReservatoriosClient from "@/components/Reservatorios/ReservatorioClient"
 
-export default async function CategoriasPage({ params }) {
-  const categorias = await prismadb.categoria.findMany({
+export default async function ReservatoriosPage({ params }) {
+  const reservatorios = await prismadb.reservatorio.findMany({
     where: {
       lojaId: params.lojaId
-    },
-    include: {
-      empresa: true,
     },
     orderBy: {
       createdAt: 'desc'
     }
   });
 
-  const formattedCategorias = categorias.map((item) => ({
+  const formattedReservatorios = reservatorios.map((item) => ({
     id: item.id,
     nome: item.nome,
-    descricao: item.descricao,
-    empresa: item.empresa.nome,
+    volumeTotal: item.volumeTotal,
+    hidrogenio: item.hidrogenio,
+    combustivel: item.combustivel,
     createdAt: format(item.createdAt,  "d' de 'MMMM', 'yyyy", { locale: ptBR }),
   }));
 
   return (
     <>
       <div>
-        <CategoriasClient data={formattedCategorias} />
+        <ReservatoriosClient data={formattedReservatorios} />
       </div>
     </>
   )
