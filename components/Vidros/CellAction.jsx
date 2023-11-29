@@ -25,11 +25,11 @@ export default function CellAction ({ data }) {
   const onConfirm = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.lojaId}/produtos/${data.id}`);
+      await axios.delete(`/api/${params.lojaId}/vidros/${data.id}`);
       window.location.reload(true);
-      toast.success('Produto deletado.');
+      toast.success('Vidro deletado.');
     } catch (error) {
-      toast.error('Remova todas as categorias que usam esse produto antes.');
+      toast.error('Erro');
     } finally {
       setLoading(false);
       setOpen(false);
@@ -66,7 +66,7 @@ export default function CellAction ({ data }) {
           </DropdownMenuItem>
           <DropdownMenuItem
             className="cursor-pointer font-medium"
-            onClick={() => router.push(`/${params.lojaId}/produtos/${data.id}`)}
+            onClick={() => router.push(`/${params.lojaId}/vidros/${data.id}`)}
           >
             <Edit className="mr-2 h-4 w-4" /> Atualizar
           </DropdownMenuItem>

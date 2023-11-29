@@ -42,9 +42,10 @@ export async function POST ( req, { params } ) {
     const vidro = await prismadb.vidro.create({
       data: {
         nome,
-        area,
-        estoque,
-        preco,
+        area: Number(area),
+        estoque: Number(estoque),
+        preco: Number(preco),
+        lojaId: params.lojaId,
       },
     });
   
